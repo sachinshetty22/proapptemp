@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Page, Button, Toolbar, ListItem, Input, List, Fab, Ripple, Icon } from 'react-onsenui';
+import { Page, Button, Toolbar, ListItem, Input, List, Fab, Ripple, Icon, ListHeader } from 'react-onsenui';
 import { notification } from 'onsenui';
+import YouTube from 'react-youtube';
 
 export default class App extends React.Component {
   constructor() {
@@ -15,51 +16,28 @@ export default class App extends React.Component {
       workOutList: [
         {
           ID: 1,
-          day: 1,
-          name: "Dips",
-          numberOfExercise: 5
+          typeName: "Main Muscle",
+          typeValue: "Hamstrings"
         },
         {
           ID: 2,
-          day: 2,
-          name: "Burpees",
-          numberOfExercise: 8
+          typeName: "Other Muscles",
+          typeValue: "Gluter,Lower Back, Quada"
         },
         {
           ID: 3,
-          day: 3,
-          name: "Crunches",
-          numberOfExercise: 9
+          typeName: "Equipment",
+          typeValue: "KettleBell"
         },
         {
           ID: 4,
-          day: 4,
-          name: "Lunges",
-          numberOfExercise: 9
+          typeName: "Mechanics Type",
+          typeValue: "Compound"
         },
         {
           ID: 5,
-          day: 1,
-          name: "Dips",
-          numberOfExercise: 5
-        },
-        {
-          ID: 6,
-          day: 2,
-          name: "Burpees",
-          numberOfExercise: 8
-        },
-        {
-          ID: 7,
-          day: 3,
-          name: "Crunches",
-          numberOfExercise: 9
-        },
-        {
-          ID: 8,
-          day: 4,
-          name: "Lunges",
-          numberOfExercise: 9
+          typeName: "Mechanics Type",
+          typeValue: "Compound"
         }
       ]
     };
@@ -79,11 +57,11 @@ export default class App extends React.Component {
 
     return (
       <ListItem key={row.ID}>
-        <div>
-          <div style={Styles.listMainText}>
-            {row.name}
-          </div>
-          <div className="inbox-body" style={Styles.listSubText}>{`${row.numberOfExercise} Exercise`}</div>
+        <div className='left'>
+          {row.typeName}
+        </div>
+        <div className='right'>
+          <span className="list__item__label"> {row.typeValue}</span>
         </div>
       </ListItem>
     );
@@ -92,33 +70,37 @@ export default class App extends React.Component {
 
 
   render() {
-
+    const opts = {
+      height: '200',
+      width: '100%',
+      playerVars: { // https://developers.google.com/youtube/player_parameters
+        autoplay: 1
+      }
+    };
     return (
       <Page renderToolbar={this.renderToolbar}>
-        <div className="center" style={Styles.infoBlock}>
-          <div style={Styles.infoDayTextBlock}>
-            Day
-          </div>
-          <div style={Styles.infoDayBlock}>
-            8
-           </div>
-          <div style={Styles.infoTitleBlock}>
-            Full-Body Workout
-          </div>
+        <div className="center" >
+          <YouTube
+            videoId="ZK7_BO0Ni8s"
+            opts={opts}
+            onReady={this._onReady}
+            />
         </div>
         <List
           dataSource={this.state.workOutList}
           renderRow={this.renderRow}
+          renderHeader={() => <ListHeader style={Styles.listTitle} >Lunge Pass Through</ListHeader>}
           />
-        <Fab position="right bottom">
-          <Ripple></Ripple>
-          <Icon icon="md-play"></Icon>
-        </Fab>
       </Page>
     );
   }
 }
 const Styles = {
+  listTitle: {
+    textAlign: "center",
+    fontSize: 16,
+    padding: 10
+  },
   leftItem: {
     width: 35,
     height: 35,
