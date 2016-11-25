@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Page, Button, Toolbar, ListItem, Input, List, Fab, Ripple, Icon, ListHeader } from 'react-onsenui';
+import { Page, Button, Toolbar, ListItem, Input, List } from 'react-onsenui';
 import { notification } from 'onsenui';
-import YouTube from 'react-youtube';
 
 export default class App extends React.Component {
   constructor() {
@@ -13,33 +12,8 @@ export default class App extends React.Component {
 
   getInitialData() {
     return {
-      workOutList: [
-        {
-          ID: 1,
-          typeName: "Main Muscle",
-          typeValue: "Hamstrings"
-        },
-        {
-          ID: 2,
-          typeName: "Other Muscles",
-          typeValue: "Gluter,Lower Back, Quada"
-        },
-        {
-          ID: 3,
-          typeName: "Equipment",
-          typeValue: "KettleBell"
-        },
-        {
-          ID: 4,
-          typeName: "Mechanics Type",
-          typeValue: "Compound"
-        },
-        {
-          ID: 5,
-          typeName: "Mechanics Type",
-          typeValue: "Compound"
-        }
-      ]
+      username: '',
+      password: ''
     };
   }
   alertPopup() {
@@ -53,88 +27,56 @@ export default class App extends React.Component {
       </Toolbar>
     );
   }
-  renderRow(row, index) {
-
-    return (
-      <ListItem key={row.ID}>
-        <div className='left'>
-          {row.typeName}
-        </div>
-        <div className='right'>
-          <span className="list__item__label"> {row.typeValue}</span>
-        </div>
-      </ListItem>
-    );
-  }
-
 
 
   render() {
-    const opts = {
-      height: '200',
-      width: '100%',
-      playerVars: { // https://developers.google.com/youtube/player_parameters
-        autoplay: 1
-      }
-    };
+
     return (
       <Page renderToolbar={this.renderToolbar}>
-        <div className="center" >
-          <YouTube
-            videoId="ZK7_BO0Ni8s"
-            opts={opts}
-            onReady={this._onReady}
-            />
-        </div>
-        <List
-          dataSource={this.state.workOutList}
-          renderRow={this.renderRow}
-          renderHeader={() => <ListHeader style={Styles.listTitle} >Lunge Pass Through</ListHeader>}
-          />
+        <section className="wrap-section" style={Styles.body}>
+          <div className="cont">
+            <div className="wrap-box">
+              <ul>
+                <li className="active"><p>9</p><p>*</p><p>KG</p></li>
+                <li>*</li>
+
+                <li><p>9</p><p>*</p><p>KG</p></li>
+                <li>*</li>
+                <li><p>9</p><p>*</p><p>KG</p></li>
+              </ul>
+
+              <ul style={{ padding: 0, margin: 0 }}>
+                <li><span>+</span></li>
+                <li className="active">
+                  <p className="sec-no">9</p>
+                  <p>*</p>
+                  <p> <Input
+              value={this.state.password}
+              onChange={this.handlePasswordChange}
+              modifier='underbar'
+              type='number'
+              float
+              placeholder='10' />
+                  </p>
+                  <p style={{ padding: 10, fontSize:24 }}>KG</p>
+                </li>
+                <li><span>-</span></li>
+              </ul>
+<Button style={{margin: '6px', float:'left'}} modifier='quiet'>{`< Previous`}</Button>
+            <Button style={{margin: '6px' , float:'right'}} modifier='cta'>Next Set ></Button>
+            
+            </div>
+          </div>
+        </section>
       </Page>
     );
   }
 }
 const Styles = {
-  listTitle: {
-    textAlign: "center",
-    fontSize: 16,
+  body: {
+    textAlign: 'center',
     padding: 10
-  },
-  leftItem: {
-    width: 35,
-    height: 35,
-    color: '#FFFFFF',
-    paddingLeft: 22,
-    paddingTop: 19,
-    border: '1px solid #3392C2'
-  },
-  listMainText: {
-    paddingTop: 5,
-    paddingBottom: 5
-  },
-  listSubText: {
-    color: '#757575',
-    fontSize: 14,
-  },
-  infoBlock: {
-    backgroundColor: '#2c3e50',
-    textAlign: "center",
-    padding: 10
-  },
-  infoDayTextBlock: {
-    fontSize: 16
-  },
-  infoDayBlock: {
-    fontSize: 90,
-    padding: 10
-  },
-  infoTitleBlock: {
-    fontSize: 25
   }
 
-
 }
-
-
 

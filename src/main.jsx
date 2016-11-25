@@ -4,8 +4,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Onsen UI Styling and Icons
+import 'bootstrap-without-jquery';
 require('onsenui/stylus/custom-theme.styl');
 require('onsenui/css/onsenui.css');
+require('onsenui/css/c.css');
+
 
 import App from './App';
 
